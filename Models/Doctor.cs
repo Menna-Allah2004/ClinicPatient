@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ClinicPatient.Models
+{
+    public class Doctor
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
+        [Required]
+        [Display(Name = "Specialization")]
+        [StringLength(100)]
+        public string Specialization { get; set; }
+
+        public string Education { get; set; }
+
+        [Display(Name = "Years of Experience")]
+        public int? ExperienceYears { get; set; }
+
+        public string Bio { get; set; }
+
+        [Display(Name = "Rating")]
+        //[Range(0, 5)]
+        [Column(TypeName = "decimal(3,1)")]
+        public decimal? Rating { get; set; } = 0;
+
+        public string ImageUrl { get; set; }
+
+        public int RatingCount { get; set; } = 0;
+
+        [Column(TypeName = "decimal(10, 2)")]
+        public decimal? ConsultationFee { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        // Navigation properties
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; }
+        public virtual ICollection<DoctorAvailability> Availabilities { get; set; }
+        public virtual ICollection<DoctorAvailability> AvailableSlots { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
+        public virtual ICollection<MedicalReport> MedicalReports { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
+
+        public Doctor()
+        {
+            Availabilities = new HashSet<DoctorAvailability>();
+            Appointments = new HashSet<Appointment>();
+            MedicalReports = new HashSet<MedicalReport>();
+            Ratings = new HashSet<Rating>();
+        }
+    }
+}
