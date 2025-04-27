@@ -30,9 +30,6 @@ namespace ClinicPatient.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Bio")
                         .HasColumnType("nvarchar(max)");
 
@@ -77,6 +74,9 @@ namespace ClinicPatient.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("License")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -158,8 +158,13 @@ namespace ClinicPatient.Data.Migrations
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
+                    b.Property<bool>("IsVirtual")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MeetingLink")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PatientId")
@@ -172,6 +177,14 @@ namespace ClinicPatient.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -234,21 +247,39 @@ namespace ClinicPatient.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("BloodType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal?>("ConsultationFee")
                         .HasColumnType("decimal(10, 2)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Education")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Experience")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ExperienceYears")
-                        .HasColumnType("int");
-
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("License")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Rating")
@@ -257,7 +288,7 @@ namespace ClinicPatient.Data.Migrations
                     b.Property<int>("RatingCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Specialization")
+                    b.Property<string>("Specialty")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -269,12 +300,72 @@ namespace ClinicPatient.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("WorkingHours")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Workplace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Doctors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Bio = "استشاري أمراض القلب والأوعية الدموية بخبرة أكثر من 15 عاماً في علاج أمراض القلب والشرايين",
+                            BloodType = "O+",
+                            City = "غزة",
+                            CreatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Experience = 15,
+                            FullName = "أحمد محمد",
+                            Location = "غزة - السرايا",
+                            Rating = 4.5m,
+                            RatingCount = 0,
+                            Specialty = "قلب وأوعية دموية",
+                            UpdatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "83670e60-4703-4748-8f56-3433db72cead",
+                            Workplace = "عيادة أحمد"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Bio = "استشارية الأمراض الجلدية والتجميل، متخصصة في علاج مشاكل البشرة والجلد والليزر التجميلي",
+                            BloodType = "O+",
+                            City = "غزة",
+                            CreatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Experience = 13,
+                            FullName = "سارة علي",
+                            Location = "غزة - الشفا",
+                            Rating = 5m,
+                            RatingCount = 0,
+                            Specialty = "جلدية",
+                            UpdatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "4c3734ae-0661-45b2-985c-4142bf3fd57e",
+                            Workplace = "عيادة سارة"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Bio = "استشاري جراحة العظام والمفاصل، متخصص في جراحات استبدال المفاصل وإصابات الملاعب",
+                            BloodType = "O+",
+                            City = "خانيونس",
+                            CreatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Experience = 20,
+                            FullName = "خالد العمري",
+                            Location = "خانيونس - البلد",
+                            Rating = 4m,
+                            RatingCount = 0,
+                            Specialty = "جراحة عظام",
+                            UpdatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "43e7b2b8-91ab-4b37-823a-0668332d073a",
+                            Workplace = "عيادة خالد"
+                        });
                 });
 
             modelBuilder.Entity("ClinicPatient.Models.DoctorAvailability", b =>
@@ -291,9 +382,6 @@ namespace ClinicPatient.Data.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DoctorId1")
-                        .HasColumnType("int");
-
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
@@ -306,8 +394,6 @@ namespace ClinicPatient.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
-
-                    b.HasIndex("DoctorId1");
 
                     b.ToTable("DoctorAvailabilities");
                 });
@@ -332,6 +418,13 @@ namespace ClinicPatient.Data.Migrations
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
+
+                    b.Property<string>("DoctorsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
                         .IsRequired()
@@ -365,6 +458,8 @@ namespace ClinicPatient.Data.Migrations
                         .HasFilter("[AppointmentId] IS NOT NULL");
 
                     b.HasIndex("DoctorId");
+
+                    b.HasIndex("DoctorsId");
 
                     b.HasIndex("PatientId");
 
@@ -413,6 +508,34 @@ namespace ClinicPatient.Data.Migrations
                     b.ToTable("Notifications");
                 });
 
+            modelBuilder.Entity("ClinicPatient.Models.NotificationSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("AppointmentNotifications")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EmailNotifications")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("TaskReminders")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("NotificationSettings");
+                });
+
             modelBuilder.Entity("ClinicPatient.Models.Patient", b =>
                 {
                     b.Property<int>("Id")
@@ -421,10 +544,17 @@ namespace ClinicPatient.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("BloodType")
                         .IsRequired()
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("Condition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -432,10 +562,20 @@ namespace ClinicPatient.Data.Migrations
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime?>("LastVisit")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("MedicalHistory")
                         .IsRequired()
@@ -449,6 +589,8 @@ namespace ClinicPatient.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -661,10 +803,6 @@ namespace ClinicPatient.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ClinicPatient.Models.Doctor", null)
-                        .WithMany("AvailableSlots")
-                        .HasForeignKey("DoctorId1");
-
                     b.Navigation("Doctor");
                 });
 
@@ -681,6 +819,10 @@ namespace ClinicPatient.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("ClinicPatient.Models.ApplicationUser", "Doctors")
+                        .WithMany()
+                        .HasForeignKey("DoctorsId");
+
                     b.HasOne("ClinicPatient.Models.Patient", "Patient")
                         .WithMany("MedicalReports")
                         .HasForeignKey("PatientId")
@@ -690,6 +832,8 @@ namespace ClinicPatient.Data.Migrations
                     b.Navigation("Appointment");
 
                     b.Navigation("Doctor");
+
+                    b.Navigation("Doctors");
 
                     b.Navigation("Patient");
                 });
@@ -705,13 +849,32 @@ namespace ClinicPatient.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ClinicPatient.Models.NotificationSettings", b =>
+                {
+                    b.HasOne("ClinicPatient.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ClinicPatient.Models.Patient", b =>
                 {
+                    b.HasOne("ClinicPatient.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ClinicPatient.Models.ApplicationUser", "User")
                         .WithOne("Patient")
                         .HasForeignKey("ClinicPatient.Models.Patient", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Doctor");
 
                     b.Navigation("User");
                 });
@@ -808,8 +971,6 @@ namespace ClinicPatient.Data.Migrations
                     b.Navigation("Appointments");
 
                     b.Navigation("Availabilities");
-
-                    b.Navigation("AvailableSlots");
 
                     b.Navigation("MedicalReports");
 

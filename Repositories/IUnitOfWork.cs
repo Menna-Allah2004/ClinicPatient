@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClinicPatient.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace ClinicPatient.Repositories
@@ -13,6 +14,7 @@ namespace ClinicPatient.Repositories
         IContactUsMessageRepository ContactUsMessages { get; }
         IRatingRepository Ratings { get; }
         INotificationRepository Notifications { get; }
+        IGenericRepository<NotificationSettings> NotificationSettings { get; }
 
         Task SaveAsync();
     }

@@ -37,106 +37,177 @@ namespace ClinicPatient.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        public IActionResult Register(string returnUrl = null)
+        //[HttpGet]
+        //public IActionResult Register(string returnUrl = null)
+        //{
+        //    var model = new RegisterViewModel
+        //    {
+        //        ReturnUrl = returnUrl
+        //    };
+        //    return View(model);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> Register(RegisterViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = new ApplicationUser
+        //        {
+        //            UserName = model.FullName,
+        //            Email = model.Email,
+        //            FullName = model.FullName,
+        //            PhoneNumber = model.PhoneNumber,
+        //            //Role = model.Role,
+        //            UserType = model.UserType,
+        //            IsApproved = model.UserType == "Patient" // Patients are approved automatically
+        //        };
+
+        //        var result = await _userManager.CreateAsync(user, model.Password);
+
+        //        if (result.Succeeded)
+        //        {
+        //            // Add user to role based on UserType
+        //            await _userManager.AddToRoleAsync(user, model.UserType);
+
+        //            // Create additional profile based on user type
+        //            if (model.UserType == "Patient")
+        //            {
+        //                var patient = new Patient
+        //                {
+        //                    UserId = user.Id,
+        //                    Gender = model.Gender,
+        //                    BloodType = model.BloodType,
+        //                    DateOfBirth = model.DateOfBirth ?? DateTime.Now,
+        //                    MedicalHistory = ""
+        //                };
+        //                await _unitOfWork.Patients.AddAsync(patient);
+        //                await _unitOfWork.SaveAsync();
+
+        //                await _signInManager.SignInAsync(user, isPersistent: false);
+        //                return RedirectToAction("Index", "Home");
+        //            }
+        //            else if (model.UserType == "Doctor")
+        //            {
+        //                var doctor = new Doctor
+        //                {
+        //                    UserId = user.Id,
+        //                    Specialty = model.Specialization ?? "",
+        //                    Bio = model.Bio,
+        //                    Experience = model.ExperienceYears ?? 0,
+        //                    Rating = 0,                            
+        //                    Education = model.Education,
+        //                    ConsultationFee = model.ConsultationFee
+        //                };
+        //                await _unitOfWork.Doctors.AddAsync(doctor);
+        //                await _unitOfWork.SaveAsync();
+
+        //                // إرسال إشعار للمسؤول
+        //                var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+        //                foreach (var admin in adminUsers)
+        //                {
+        //                    await _notificationService.CreateNotificationAsync(
+        //                        admin.Id,
+        //                        "طلب تسجيل طبيب جديد",
+        //                        $"طلب {user.FullName} التسجيل كطبيب. يرجى مراجعة الطلب.",
+        //                        "System"
+        //                    );
+        //                }
+
+        //                TempData["SuccessMessage"] = "تم تسجيل حسابك بنجاح. سيتم مراجعة معلوماتك والرد عليك قريبًا.";
+        //                return RedirectToAction("Login");
+        //            }
+
+        //            // Optional: Send email confirmation
+        //            // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        //            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+        //            // await _emailSender.SendEmailAsync(model.Email, "Confirm your account", $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+
+        //            if (_userManager.Options.SignIn.RequireConfirmedAccount)
+        //            {
+        //                return RedirectToAction("RegisterConfirmation");
+        //            }
+        //            else
+        //            {
+        //                await _signInManager.SignInAsync(user, isPersistent: false);
+        //                if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+        //                {
+        //                    return Redirect(model.ReturnUrl); // ✅ ترجع المستخدم للمكان اللي كان فيه
+        //                }
+        //                return RedirectToAction("Index", "Home");
+        //            }
+        //        }
+
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError(string.Empty, error.Description);
+        //        }
+        //    }
+
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
+
+        public IActionResult Register()
         {
-            var model = new RegisterViewModel
+            // صفحة اختيار نوع المستخدم للتسجيل
+            return View();
+        }
+
+        public IActionResult PatientRegister()
+        {
+            // صفحة تسجيل خاصة بالمرضى
+            var model = new RegisterPatientViewModel
             {
-                ReturnUrl = returnUrl
+                UserType = "Patient"
             };
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> PatientRegister(RegisterPatientViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.FullName,
+                    UserName = model.Email, // استخدام البريد الإلكتروني كاسم مستخدم
                     Email = model.Email,
                     FullName = model.FullName,
                     PhoneNumber = model.PhoneNumber,
-                    //Role = model.Role,
-                    UserType = model.UserType,
-                    IsApproved = model.UserType == "Patient" // Patients are approved automatically
+                    UserType = "Patient",
+                    IsApproved = true // الموافقة التلقائية للمرضى
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    // Add user to role based on UserType
-                    await _userManager.AddToRoleAsync(user, model.UserType);
+                    // إضافة المستخدم إلى دور المريض
+                    await _userManager.AddToRoleAsync(user, "Patient");
 
-                    // Create additional profile based on user type
-                    if (model.UserType == "Patient")
+                    // إنشاء كائن المريض
+                    var patient = new Patient
                     {
-                        var patient = new Patient
-                        {
-                            UserId = user.Id,
-                            Gender = model.Gender,
-                            BloodType = model.BloodType,
-                            DateOfBirth = model.DateOfBirth ?? DateTime.Now,
-                            MedicalHistory = ""
-                        };
-                        await _unitOfWork.Patients.AddAsync(patient);
-                        await _unitOfWork.SaveAsync();
+                        UserId = user.Id,
+                        Gender = model.Gender,
+                        BloodType = model.BloodType,
+                        DateOfBirth = model.DateOfBirth ?? DateTime.Now,
+                        MedicalHistory = ""
+                    };
+                    await _unitOfWork.Patients.AddAsync(patient);
+                    await _unitOfWork.SaveAsync();
 
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else if (model.UserType == "Doctor")
+                    // تسجيل دخول المستخدم تلقائياً
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    // توجيه المستخدم إلى الصفحة المطلوبة
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
-                        var doctor = new Doctor
-                        {
-                            UserId = user.Id,
-                            Specialization = model.Specialization ?? "",
-                            Bio = model.Bio,
-                            ExperienceYears = model.ExperienceYears ?? 0,
-                            Rating = 0,                            
-                            Education = model.Education,
-                            ConsultationFee = model.ConsultationFee
-                        };
-                        await _unitOfWork.Doctors.AddAsync(doctor);
-                        await _unitOfWork.SaveAsync();
-
-                        // إرسال إشعار للمسؤول
-                        var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
-                        foreach (var admin in adminUsers)
-                        {
-                            await _notificationService.CreateNotificationAsync(
-                                admin.Id,
-                                "طلب تسجيل طبيب جديد",
-                                $"طلب {user.FullName} التسجيل كطبيب. يرجى مراجعة الطلب.",
-                                "System"
-                            );
-                        }
-
-                        TempData["SuccessMessage"] = "تم تسجيل حسابك بنجاح. سيتم مراجعة معلوماتك والرد عليك قريبًا.";
-                        return RedirectToAction("Login");
+                        return Redirect(model.ReturnUrl);
                     }
-
-                    // Optional: Send email confirmation
-                    // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    // await _emailSender.SendEmailAsync(model.Email, "Confirm your account", $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToAction("RegisterConfirmation");
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                        {
-                            return Redirect(model.ReturnUrl); // ✅ ترجع المستخدم للمكان اللي كان فيه
-                        }
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("Profile", "Patient");
                 }
 
                 foreach (var error in result.Errors)
@@ -145,7 +216,81 @@ namespace ClinicPatient.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // إذا حدث خطأ ما، نعرض النموذج مرة أخرى
+            return View(model);
+        }
+
+        public IActionResult DoctorRegister()
+        {
+            // صفحة تسجيل خاصة بالأطباء
+            var model = new RegisterDoctorViewModel
+            {
+                UserType = "Doctor"
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DoctorRegister(RegisterDoctorViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email, // استخدام البريد الإلكتروني كاسم مستخدم
+                    Email = model.Email,
+                    FullName = model.FullName,
+                    PhoneNumber = model.PhoneNumber,
+                    UserType = "Doctor",
+                    IsApproved = false // الطبيب يحتاج لموافقة المسؤول
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    // إضافة المستخدم إلى دور الطبيب
+                    await _userManager.AddToRoleAsync(user, "Doctor");
+
+                    // إنشاء كائن الطبيب
+                    var doctor = new Doctor
+                    {
+                        UserId = user.Id,
+                        Specialty = model.Specialization,
+                        Bio = model.Bio,
+                        Experience = model.ExperienceYears ?? 0,
+                        Rating = 0,
+                        Education = model.Education,
+                        ConsultationFee = model.ConsultationFee
+                    };
+                    await _unitOfWork.Doctors.AddAsync(doctor);
+                    await _unitOfWork.SaveAsync();
+
+                    // إرسال إشعار للمسؤول
+                    var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+                    foreach (var admin in adminUsers)
+                    {
+                        await _notificationService.CreateNotificationAsync(
+                            admin.Id,
+                            "طلب تسجيل طبيب جديد",
+                            $"طلب {user.FullName} التسجيل كطبيب. يرجى مراجعة الطلب.",
+                            "System"
+                        );
+                    }
+
+                    // إظهار رسالة للمستخدم
+                    TempData["SuccessMessage"] = "تم تسجيل حسابك بنجاح. سيتم مراجعة معلوماتك والرد عليك قريبًا.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            // إذا حدث خطأ ما، نعرض النموذج مرة أخرى
             return View(model);
         }
 
@@ -186,7 +331,7 @@ namespace ClinicPatient.Controllers
                         return RedirectToAction("Dashboard", "Doctors");
 
                     if (await _userManager.IsInRoleAsync(user, "Patient"))
-                        return RedirectToAction("Profile", "Patients");
+                        return RedirectToAction("Profile", "Patient");
 
                     return LocalRedirect(returnUrl);
                 }
@@ -195,6 +340,9 @@ namespace ClinicPatient.Controllers
                     return RedirectToAction("Lockout");
                 }
                 else
+                {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                }
                 {
                     ModelState.AddModelError(string.Empty, "محاولة تسجيل دخول غير صالحة.");
                     return View(model);
@@ -224,7 +372,7 @@ namespace ClinicPatient.Controllers
             }
             if (user.UserType == "Patient")
             {
-                return RedirectToAction("Profile", "Patients");
+                return RedirectToAction("Profile", "Patient");
             }
             else if (user.UserType == "Doctor")
             {
@@ -320,8 +468,8 @@ namespace ClinicPatient.Controllers
                 return NotFound();
             }
 
-            doctor.Specialization = model.Specialization;
-            doctor.ExperienceYears = model.ExperienceYears;
+            doctor.Specialty = model.Specialty;
+            doctor.Experience = model.ExperienceYears;
 
             // Handle profile image upload
             if (model.ProfileImage != null)
@@ -333,7 +481,7 @@ namespace ClinicPatient.Controllers
                 // string filePath = Path.Combine(webHostEnvironment.WebRootPath, "images", "doctors", uniqueFileName);
                 // using (var fileStream = new FileStream(filePath, FileMode.Create))
                 // {
-                //     await model.ProfileImage.CopyToAsync(fileStream);
+                //     await model.ProfileImage.CopyToAsync(fileStream);ئ
                 // }
 
                 doctor.ImageUrl = "/images/doctors/" + uniqueFileName;
@@ -343,6 +491,12 @@ namespace ClinicPatient.Controllers
             TempData["StatusMessage"] = "Your profile has been updated";
             return RedirectToAction(nameof(Profile));
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

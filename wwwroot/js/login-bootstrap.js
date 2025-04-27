@@ -1,106 +1,59 @@
-// ======= Login Page JavaScript Logic for Bootstrap Version =======
+// ======= Login Page JavaScript Logic (Cleaned Version - No Backend) =======
 
-// DOM Elements
-document.addEventListener('DOMContentLoaded', function() {
-  const patientBtn = document.getElementById('patientBtn');
-  const doctorBtn = document.getElementById('doctorBtn');
-  const loginForm = document.getElementById('loginForm');
-  const togglePasswordBtn = document.getElementById('togglePassword');
-  const passwordInput = document.getElementById('password');
-  const passwordIcon = document.getElementById('passwordIcon');
+document.addEventListener('DOMContentLoaded', function () {
+    const patientBtn = document.getElementById('patientBtn');
+    const doctorBtn = document.getElementById('doctorBtn');
+    const loginForm = document.getElementById('loginForm');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const passwordIcon = document.getElementById('passwordIcon');
 
-  // User type state (default: patient)
-  let userType = 'patient';
+    let userType = 'patient';
 
-  // User type tabs functionality
-  patientBtn.addEventListener('click', () => setUserType('patient'));
-  doctorBtn.addEventListener('click', () => setUserType('doctor'));
-  
-  // Toggle password visibility
-  togglePasswordBtn.addEventListener('click', togglePasswordVisibility);
-  
-  // Form submission
-  loginForm.addEventListener('submit', handleSubmit);
+    patientBtn.addEventListener('click', () => setUserType('patient'));
+    doctorBtn.addEventListener('click', () => setUserType('doctor'));
+    togglePasswordBtn.addEventListener('click', togglePasswordVisibility);
+    loginForm.addEventListener('submit', handleSubmit);
 
-  // Set user type function
-  function setUserType(type) {
-    userType = type;
-    
-    if (type === 'patient') {
-      patientBtn.classList.add('active-tab');
-      doctorBtn.classList.remove('active-tab');
-    } else {
-      doctorBtn.classList.add('active-tab');
-      patientBtn.classList.remove('active-tab');
+    function setUserType(type) {
+        userType = type;
+        patientBtn.classList.toggle('active-tab', type === 'patient');
+        doctorBtn.classList.toggle('active-tab', type === 'doctor');
     }
-  }
 
-  // Toggle password visibility
-  function togglePasswordVisibility() {
-    if (passwordInput.type === 'password') {
-      passwordInput.type = 'text';
-      passwordIcon.classList.remove('fa-eye');
-      passwordIcon.classList.add('fa-eye-slash');
-    } else {
-      passwordInput.type = 'password';
-      passwordIcon.classList.remove('fa-eye-slash');
-      passwordIcon.classList.add('fa-eye');
+    function togglePasswordVisibility() {
+        const isHidden = passwordInput.type === 'password';
+        passwordInput.type = isHidden ? 'text' : 'password';
+        passwordIcon.classList.toggle('fa-eye', !isHidden);
+        passwordIcon.classList.toggle('fa-eye-slash', isHidden);
     }
-  }
 
-  // Handle form submission
-  function handleSubmit(event) {
-    event.preventDefault();
-    
-    // Form validation
-    if (!loginForm.checkValidity()) {
-      event.stopPropagation();
-      loginForm.classList.add('was-validated');
-      return;
-    }
-    
-    // Get form data
-    const formData = {
-      email: document.getElementById('email').value,
-      password: document.getElementById('password').value,
-      rememberMe: document.getElementById('rememberMe').checked,
-      userType: userType
-    };
-    
-    console.log('Login submitted', formData);
-    
-    // Show toast notification
-    showToast('تم تسجيل الدخول بنجاح', 'جاري توجيهك إلى لوحة التحكم الخاصة بك');
-    
-    // Redirect based on user type
-    setTimeout(() => {
-      if (userType === 'patient') {
-        window.location.href = 'patient-profile.html';
-      } else {
-        window.location.href = 'doctor-dashboard.html';
-      }
-    }, 1500);
-  }
+    function handleSubmit(event) {
+        event.preventDefault();
 
-  // Simple toast notification
-  function showToast(title, message) {
-    // Create toast container if it doesn't exist
-    let toastContainer = document.querySelector('.toast-container');
-    if (!toastContainer) {
-      toastContainer = document.createElement('div');
-      toastContainer.className = 'toast-container position-fixed bottom-0 end-0 p-3';
-      document.body.appendChild(toastContainer);
+        showToast(
+            'تم تسجيل الدخول (تجريبي)',
+            userType === 'patient'
+                ? 'أهلاً بالمريض! (لن يتم توجيهك فعليًا)'
+                : 'أهلاً بالطبيب! (لن يتم توجيهك فعليًا)'
+        );
     }
-    
-    // Create toast element
-    const toastEl = document.createElement('div');
-    toastEl.className = 'toast show fade-in';
-    toastEl.setAttribute('role', 'alert');
-    toastEl.setAttribute('aria-live', 'assertive');
-    toastEl.setAttribute('aria-atomic', 'true');
-    
-    // Toast content
-    toastEl.innerHTML = `
+
+    function showToast(title, message) {
+        let toastContainer = document.querySelector('.toast-container');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+            document.body.appendChild(toastContainer);
+        }
+
+        const toastEl = document.createElement('div');
+        toastEl.className = 'toast show fade-in';
+        toastEl.setAttribute('role', 'alert');
+        toastEl.setAttribute('aria-live', 'assertive');
+        toastEl.setAttribute('aria-atomic', 'true');
+
+        toastEl.innerHTML = `
       <div class="toast-header bg-primary text-white">
         <strong class="ms-auto">${title}</strong>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="إغلاق"></button>
@@ -109,19 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
         ${message}
       </div>
     `;
-    
-    // Add toast to container
-    toastContainer.appendChild(toastEl);
-    
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-      toastEl.remove();
-    }, 5000);
-    
-    // Close button functionality
-    const closeBtn = toastEl.querySelector('.btn-close');
-    closeBtn.addEventListener('click', () => {
-      toastEl.remove();
-    });
-  }
+
+        toastContainer.appendChild(toastEl);
+
+        setTimeout(() => toastEl.remove(), 5000);
+        toastEl.querySelector('.btn-close').addEventListener('click', () => toastEl.remove());
+    }
 });

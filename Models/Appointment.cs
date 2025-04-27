@@ -30,14 +30,22 @@ namespace ClinicPatient.Models
         [Required]
         [Display(Name = "Status")]
         [StringLength(20)]
-        public string Status { get; set; } = "Pending"; // Pending, Confirmed, Completed, Cancelled
+        public string Status { get; set; } = "Pending";
 
         [Display(Name = "Notes")]
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        public string Title { get; set; }  
+
+        public string Type { get; set; }   
+
+        public bool IsVirtual { get; set; }  
+
+        public string? MeetingLink { get; set; }
 
         [ForeignKey("PatientId")]
         public virtual Patient Patient { get; set; }

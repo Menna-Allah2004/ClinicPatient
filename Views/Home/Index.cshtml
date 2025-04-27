@@ -1,5 +1,8 @@
-﻿@{
+﻿@model List<DoctorViewModel>
+
+@{
     ViewData["Title"] = "الصفحة الرئيسية";
+    Layout = "_Layout";
 }
 
 <!-- Hero Section -->
@@ -16,7 +19,7 @@
                         والخدمات الطبية بطريقة سهلة وآمنة
                     </p>
                     <div class="d-flex flex-wrap gap-3">
-                        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-light btn-lg rounded-pill shadow px-4 py-2">
+                        <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg rounded-pill shadow px-4 py-2">
                             <i class="fas fa-user-plus me-2"></i>انضم إلينا الآن
                         </a>
                         <a href="#featured-doctors" class="btn btn-outline-light btn-lg rounded-pill px-4 py-2">
@@ -26,7 +29,7 @@
                 </div>
             </div>
             <div class="col-lg-6 text-center">
-                <img src="https://dummyimage.com/600x500/e0e0e0/808080&text=Doctor+Illustration"
+                <img src="~/images/home-image.png"
                      class="img-fluid img-blur-in rounded-4 shadow-lg animate-on-scroll" alt="طبيب ومريض">
             </div>
         </div>
@@ -211,7 +214,7 @@
                             <div class="position-relative doctor-img-wrapper">
                                 <img src="@(string.IsNullOrEmpty(doctor.ImageUrl) ? "/images/default-doctor.png" : doctor.ImageUrl)" class="doctor-img"
                                      alt="@doctor.FullName">
-                                <span class="doctor-specialty">@doctor.Specialization</span>
+                                <span class="doctor-specialty">@doctor.Specialty</span>
                             </div>
                             <div class="card-body p-4">
                                 <h5 class="fw-bold mb-1 doctor-name">د. @doctor.FullName</h5>
@@ -347,10 +350,14 @@
                 </p>
             </div>
             <div class="col-lg-4 text-lg-end animate-on-scroll">
-                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-light btn-lg rounded-pill px-5 shadow">
+                <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg rounded-pill px-5 shadow">
                     إنشاء حساب مجاني
                 </a>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Custom JavaScript -->
+<script src="~/js/index.js"></script>
+<link rel="stylesheet" href="~/css/styles-bootstrap.css">

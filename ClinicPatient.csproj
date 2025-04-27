@@ -21,7 +21,6 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Views\Appointments\" />
 		<Folder Include="wwwroot\uploads\doctors\" />
 		<Folder Include="wwwroot\uploads\patients\" />
 	</ItemGroup>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ClinicPatient.Models;
+using Microsoft.CodeAnalysis;
+using ClinicPatient.ViewModels;
 
 namespace ClinicPatient.Data
 {
@@ -19,6 +21,7 @@ namespace ClinicPatient.Data
         public DbSet<ContactUsMessage> ContactUsMessages { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationSettings> NotificationSettings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -72,6 +75,57 @@ namespace ClinicPatient.Data
                 .WithMany(d => d.Appointments)
                 .HasForeignKey(a => a.DoctorId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Doctor>().HasData(
+                new Doctor
+                {
+                    Id = 1,
+                    UserId = "83670e60-4703-4748-8f56-3433db72cead",
+                    Specialty = "قلب وأوعية دموية",
+                    Experience = 15,
+                    Rating = (decimal?)4.5,
+                    Bio = "استشاري أمراض القلب والأوعية الدموية بخبرة أكثر من 15 عاماً في علاج أمراض القلب والشرايين",
+                    Location = "غزة - السرايا",
+                    City = "غزة",
+                    FullName = "أحمد محمد",
+                    Workplace = "عيادة أحمد",
+                    CreatedAt = new DateTime(2025, 4, 26),
+                    UpdatedAt = new DateTime(2025, 4, 26),
+                    BloodType = "O+"
+                },                
+                new Doctor
+                {
+                    Id = 2,
+                    UserId = "4c3734ae-0661-45b2-985c-4142bf3fd57e",
+                    Specialty = "جلدية",
+                    Experience = 13,
+                    Rating = (decimal?)5,
+                    Bio = "استشارية الأمراض الجلدية والتجميل، متخصصة في علاج مشاكل البشرة والجلد والليزر التجميلي",
+                    Location = "غزة - الشفا",
+                    City = "غزة",
+                    FullName = "سارة علي",
+                    Workplace = "عيادة سارة",
+                    CreatedAt = new DateTime(2025, 4, 26),
+                    UpdatedAt = new DateTime(2025, 4, 26),
+                    BloodType = "O+"
+                },                
+                new Doctor
+                {
+                    Id = 3,
+                    UserId = "43e7b2b8-91ab-4b37-823a-0668332d073a",
+                    Specialty = "جراحة عظام",
+                    Experience = 20,
+                    Rating = (decimal?)4,
+                    Bio = "استشاري جراحة العظام والمفاصل، متخصص في جراحات استبدال المفاصل وإصابات الملاعب",
+                    Location = "خانيونس - البلد",
+                    City = "خانيونس",
+                    FullName = "خالد العمري",
+                    Workplace = "عيادة خالد",
+                    CreatedAt = new DateTime(2025, 4, 26),
+                    UpdatedAt = new DateTime(2025, 4, 26),
+                    BloodType = "O+"
+                }
+            );
         }
     }
 }

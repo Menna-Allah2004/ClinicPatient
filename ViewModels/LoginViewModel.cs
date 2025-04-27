@@ -14,6 +14,10 @@ namespace ClinicPatient.ViewModels
         [Display(Name = "كلمة المرور")]
         public string Password { get; set; }
 
+        // إضافة حقل لنوع المستخدم (طبيب أو مريض)
+        [Display(Name = "نوع المستخدم")]
+        public string UserType { get; set; }
+
         [Display(Name = "تذكرني؟")]
         public bool RememberMe { get; set; }
     }

@@ -1,0 +1,11 @@
+﻿@model ClinicPatient.ViewModels.AccessDeniedViewModel
+
+@{
+    ViewData["Title"] = "الوصول محظور";
+}
+
+<header>
+    <h1 class="text-danger">@ViewData["Title"]</h1>
+    <p class="text-danger">عذراً، لا تملك الصلاحيات للوصول إلى هذه الصفحة</p>
+    <a href="javascript:history.back()" class="btn btn-primary">العودة للصفحة السابقة</a>
+</header>

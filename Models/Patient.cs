@@ -30,11 +30,19 @@ namespace ClinicPatient.Models
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
+        public string FullName { get; set; }
+        public int Age { get; set; }
+        public string Condition { get; set; }
+        public int DoctorId { get; set; }
+        public Doctor Doctor { get; set; }
+
         // Navigation properties
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
+        //public virtual ApplicationUser Doctors { get; set; }
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<MedicalReport> MedicalReports { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
+        public DateTime? LastVisit { get; set; }
     }
 }

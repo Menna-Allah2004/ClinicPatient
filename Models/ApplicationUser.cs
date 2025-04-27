@@ -11,7 +11,7 @@ namespace ClinicPatient.Models
         [StringLength(100)]
         public string FullName { get; set; }
 
-        public string? Address { get; set; }
+        public string? Location { get; set; }
         
         public string ImageUrl { get; set; }
         

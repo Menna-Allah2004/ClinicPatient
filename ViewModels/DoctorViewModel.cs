@@ -12,46 +12,47 @@ namespace ClinicPatient.ViewModels
 
         public string UserId { get; set; }
 
-        [Required(ErrorMessage = "Full name is required")]
-        [Display(Name = "Full Name")]
+        [Required(ErrorMessage = "الاسم الكامل مطلوب")]
+        [Display(Name = "الاسم الكامل")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Specialization is required")]
-        [Display(Name = "Specialization")]
-        public string Specialization { get; set; }
+        [Required(ErrorMessage = "التخصص مطلوب")]
+        [Display(Name = "التخصص")]
+        public string Specialty { get; set; }
 
-        [Display(Name = "Bio")]
+        [Display(Name = "نبذة شخصية")]
         public string Bio { get; set; }
 
-        [Display(Name = "Education")]
+        [Display(Name = "المؤهلات العلمية")]
         public string Education { get; set; }
 
-        [Display(Name = "Experience (Years)")]
+        [Required(ErrorMessage = "سنوات الخبرة مطلوبة")]
+        [Display(Name = "سنوات الخبرة")]
         public int? ExperienceYears { get; set; }
 
-        [Display(Name = "Rating")]
+        [Display(Name = "التقييم")]
         public decimal Rating { get; set; }
 
-        [Display(Name = "Rating Count")]
+        [Display(Name = "عدد التقييمات")]
         public int RatingCount { get; set; }
 
-        [Display(Name = "Consultation Fee")]
+        [Display(Name = "رسوم الاستشارة")]
         [DataType(DataType.Currency)]
         public decimal? ConsultationFee { get; set; }
 
-        [Display(Name = "Profile Image")]
+        [Display(Name = "صورة الملف الشخصي")]
         public string ImageUrl { get; set; }
 
-        [Phone(ErrorMessage = "Invalid phone number")]
-        [Display(Name = "Phone Number")]
+        [Phone(ErrorMessage = "رقم الهاتف مطلوب")]
+        [Display(Name = "رقم الهاتف")]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        [Display(Name = "Email")]
+        [Required(ErrorMessage = "البريد الإلكتروني مطلوب")]
+        [EmailAddress(ErrorMessage = "البريد الإلكتروني غير صالح")]
+        [Display(Name = "البريد الإلكتروني")]
         public string Email { get; set; }
 
-        [Display(Name = "Profile Image Upload")]
+        [Display(Name = "تحميل صورة الملف الشخصي")]
         public IFormFile ProfileImage { get; set; }
 
         [Display(Name = "Is Approved")]
@@ -69,4 +70,31 @@ namespace ClinicPatient.ViewModels
         public string Specialization { get; set; }
         public List<string> Specializations { get; set; }
     }
+
+    public class DoctorSearchViewModel
+    {
+        public string? SearchQuery { get; set; }
+        public string? Specialty { get; set; }
+        public string? Location { get; set; }
+        public string? Rating { get; set; }
+        public string? Price { get; set; }
+        public bool AvailableToday { get; set; }
+        public bool NoResults => Doctors == null || Doctors.Count == 0;
+        public int DoctorCount => Doctors?.Count ?? 0;
+
+        // قائمة الأطباء المعروضة
+        public List<DoctorViewModel> Doctors { get; set; } = new();
+
+        // 🔽 الخصائص الجديدة التي تحتاجينها حسب الرسائل:
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public string? SortBy { get; set; }
+        public string? SelectedSpecialty { get; set; }
+        public string? SelectedLocation { get; set; }
+
+        // في حال تحتاجين عرض قائمة بالاختيارات للموقع:
+        public List<string>? Locations { get; set; }
+        public List<string> Specialties { get; set; } = new List<string>();
+    }
+
 }

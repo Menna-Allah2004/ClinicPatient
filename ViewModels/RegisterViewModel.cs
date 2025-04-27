@@ -72,7 +72,24 @@ namespace ClinicPatient.ViewModels
         [Display(Name = "Years of Experience")]
         public int? ExperienceYears { get; set; }
 
-        // باقي الخصائص مثل Email، Password، FullName...
+        [Required(ErrorMessage = "المدينة مطلوبة")]
+        [Display(Name = "المدينة")]
+        public string City { get; set; }
+
+        [Display(Name = "رقم الترخيص الطبي")]
+        public string License { get; set; }
+
+        [Display(Name = "العيادة/المستشفى")]
+        public string Workplace { get; set; }
+
+        [Display(Name = "عنوان العيادة")]
+        public string? Location { get; set; }
+
+        [Required(ErrorMessage = "يجب الموافقة على شروط الاستخدام وسياسة الخصوصية")]
+        [Display(Name = "أوافق على شروط الاستخدام وسياسة الخصوصية")]
+        public bool AgreeTerms { get; set; }
+
+        // URL العودة بعد التسجيل
         public string ReturnUrl { get; set; }
     }
 }

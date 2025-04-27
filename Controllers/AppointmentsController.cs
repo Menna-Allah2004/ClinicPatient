@@ -78,7 +78,7 @@ namespace ClinicPatient.Controllers
                 PatientName = a.Patient.User.FullName,
                 DoctorId = a.DoctorId,
                 DoctorName = a.Doctor.User.FullName,
-                DoctorSpecialization = a.Doctor.Specialization,
+                DoctorSpecialization = a.Doctor.Specialty,
                 AppointmentDate = a.AppointmentDate,
                 Status = a.Status,
                 Notes = a.Notes
@@ -130,7 +130,7 @@ namespace ClinicPatient.Controllers
                 PatientName = appointment.Patient.User.FullName,
                 DoctorId = appointment.DoctorId,
                 DoctorName = appointment.Doctor.User.FullName,
-                DoctorSpecialization = appointment.Doctor.Specialization,
+                DoctorSpecialization = appointment.Doctor.Specialty,
                 AppointmentDate = appointment.AppointmentDate,
                 Status = appointment.Status,
                 Notes = appointment.Notes
@@ -257,7 +257,7 @@ namespace ClinicPatient.Controllers
                 PatientName = appointment.Patient.User.FullName,
                 DoctorId = appointment.DoctorId,
                 DoctorName = appointment.Doctor.User.FullName,
-                DoctorSpecialization = appointment.Doctor.Specialization,
+                DoctorSpecialization = appointment.Doctor.Specialty,
                 AppointmentDate = appointment.AppointmentDate,
                 Status = appointment.Status,
                 Notes = appointment.Notes
@@ -415,7 +415,7 @@ namespace ClinicPatient.Controllers
                 PatientName = appointment.Patient.User.FullName,
                 DoctorId = appointment.DoctorId,
                 DoctorName = appointment.Doctor.User.FullName,
-                DoctorSpecialization = appointment.Doctor.Specialization,
+                DoctorSpecialization = appointment.Doctor.Specialty,
                 AppointmentDate = appointment.AppointmentDate,
                 Status = appointment.Status,
                 Notes = appointment.Notes
@@ -490,7 +490,7 @@ namespace ClinicPatient.Controllers
                 PatientName = a.Patient.User.FullName,
                 DoctorId = a.DoctorId,
                 DoctorName = a.Doctor.User.FullName,
-                DoctorSpecialization = a.Doctor.Specialization,
+                DoctorSpecialization = a.Doctor.Specialty,
                 AppointmentDate = a.AppointmentDate,
                 Status = a.Status,
                 Notes = a.Notes

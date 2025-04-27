@@ -26,6 +26,8 @@ namespace ClinicPatient.Models
 
         public string Notes { get; set; }
 
+        public string FilePath { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
@@ -39,6 +41,7 @@ namespace ClinicPatient.Models
 
         [ForeignKey("AppointmentId")]
         public virtual Appointment Appointment { get; set; }
+        public virtual ApplicationUser Doctors { get; set; }
 
         public string ReportDetails { get; set; }
         public DateTime ReportDate { get; set; }

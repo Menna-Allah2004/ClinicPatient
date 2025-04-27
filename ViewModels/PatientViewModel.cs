@@ -25,11 +25,13 @@ namespace ClinicPatient.ViewModels
         public string PhoneNumber { get; set; }
 
         [Display(Name = "العنوان")]
-        public string Address { get; set; }
+        public string Location { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "تاريخ الميلاد")]
         public DateTime DateOfBirth { get; set; }
+
+        public int Age { get; set; }
 
         [Display(Name = "التاريخ الطبي")]
         public string MedicalHistory { get; set; }
@@ -72,7 +74,7 @@ namespace ClinicPatient.ViewModels
         public string PhoneNumber { get; set; }
 
         [Display(Name = "العنوان")]
-        public string Address { get; set; }
+        public string Location { get; set; }
 
         [Display(Name = "تاريخ الميلاد")]
         [DataType(DataType.Date)]
@@ -93,5 +95,15 @@ namespace ClinicPatient.ViewModels
         public List<AppointmentViewModel> UpcomingAppointments { get; set; }
         public List<AppointmentViewModel> PastAppointments { get; set; }
         public List<MedicalReportViewModel> MedicalReports { get; set; }
+    }
+
+    public class PatientListViewModel
+    {
+        public PatientViewModel[] Patients { get; set; } = new PatientViewModel[0];
+        public int TotalPatientsCount { get; set; }
+        public int CurrentPage { get; set; } = 1;
+        public int TotalPages { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
+        public string SearchQuery { get; set; } = "";
     }
 }

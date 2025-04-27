@@ -1,0 +1,22 @@
+﻿@model ClinicPatient.ViewModels.LogoutViewModel
+
+@{
+    ViewData["Title"] = "تسجيل الخروج";
+}
+
+<header>
+    <h1>@ViewData["Title"]</h1>
+    @{
+        if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <form class="form-inline" asp-asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                <button type="submit" class="nav-link btn btn-link text-dark">اضغط هنا لتسجيل الخروج</button>
+                <p style="color: #555; margin: 10px 0 30px;">نراك لاحقًا، نتمنى لك دوام الصحة والعافية 🌟</p>
+            </form>
+        }
+        else
+        {
+            <p>تم تسجيل خروجك بنجاح. </p>
+        }
+    }
+</header>

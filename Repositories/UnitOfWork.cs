@@ -1,4 +1,5 @@
 ﻿using ClinicPatient.Data;
+using ClinicPatient.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace ClinicPatient.Repositories
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
+            NotificationSettings = new GenericRepository<NotificationSettings>(_context);
         }
 
         public IPatientRepository Patients => _patientRepository ??= new PatientRepository(_context);
@@ -29,6 +31,7 @@ namespace ClinicPatient.Repositories
         public IContactUsMessageRepository ContactUsMessages => _contactUsMessageRepository ??= new ContactUsMessageRepository(_context);
         public IRatingRepository Ratings => _ratingRepository ??= new RatingRepository(_context);
         public INotificationRepository Notifications => _notificationRepository ??= new NotificationRepository(_context);
+        public IGenericRepository<NotificationSettings> NotificationSettings { get; private set; }
 
         public async Task SaveAsync()
         {

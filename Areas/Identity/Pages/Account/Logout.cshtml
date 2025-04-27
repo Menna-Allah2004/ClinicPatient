@@ -1,23 +1,0 @@
-﻿@page
-@model LogoutModel
-@{
-    ViewData["Title"] = "تسجيل الخروج";
-}
-
-<header>
-    <h1>@ViewData["Title"]</h1>
-    @{
-        if (User.Identity?.IsAuthenticated ?? false)
-        {
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn btn-link text-dark">اضغط هنا لتسجيل الخروج</button>
-                <p style="color: #555; margin: 10px 0 30px;">نراك لاحقًا، نتمنى لك دوام الصحة والعافية 🌟</p>
-                <a href="/" style="background-color: #0d6efd; color: white; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: background 0.3s;"/>
-            </form>
-        }
-        else
-        {
-            <p>تم تسجيل خروجك بنجاح. </p>
-        }
-    }
-</header>
