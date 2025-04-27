@@ -42,7 +42,7 @@ namespace ClinicPatient.Controllers
 
             if (!string.IsNullOrEmpty(specialization))
             {
-                doctors = doctors.Where(d => d.Specialization == specialization);
+                doctors = doctors.Where(d => d.Specialty == specialization);
             }
 
             var viewModels = doctors.Select(d => new DoctorViewModel
@@ -51,8 +51,8 @@ namespace ClinicPatient.Controllers
                 FullName = d.User.FullName,
                 Email = d.User.Email,
                 PhoneNumber = d.User.PhoneNumber,
-                Specialization = d.Specialization,
-                ExperienceYears = d.ExperienceYears,
+                Specialization = d.Specialty,
+                ExperienceYears = d.Experience,
                 Bio = d.Bio,
                 Rating = d.Rating ?? 0m,
                 RatingCount = d.RatingCount,
@@ -61,7 +61,7 @@ namespace ClinicPatient.Controllers
             }).ToList();
 
             var specializations = await _unitOfWork.Doctors.GetAsync();
-            var specializationList = specializations.Select(d => d.Specialization).Distinct().ToList();
+            var specializationList = specializations.Select(d => d.Specialty).Distinct().ToList();
 
             var listViewModel = new DoctorsListViewModel
             {
@@ -94,8 +94,8 @@ namespace ClinicPatient.Controllers
                 PhoneNumber = doctor.User.PhoneNumber,
                 Bio = doctor.Bio,
                 Education = doctor.Education,
-                Specialization = doctor.Specialization,
-                ExperienceYears = doctor.ExperienceYears,
+                Specialization = doctor.Specialty,
+                ExperienceYears = doctor.Experience,
                 Rating = doctor.Rating ?? 0m,
                 RatingCount = doctor.RatingCount,
                 ConsultationFee = doctor.ConsultationFee,
@@ -311,8 +311,8 @@ namespace ClinicPatient.Controllers
                 FullName = d.User.FullName,
                 Email = d.User.Email,
                 PhoneNumber = d.User.PhoneNumber,
-                Specialization = d.Specialization,
-                ExperienceYears = d.ExperienceYears,
+                Specialization = d.Specialty,
+                ExperienceYears = d.Experience,
                 Rating = d.Rating ?? 0m,
                 ImageUrl = d.ImageUrl
             }).ToList();
@@ -336,8 +336,8 @@ namespace ClinicPatient.Controllers
                 FullName = d.User.FullName,
                 Email = d.User.Email,
                 PhoneNumber = d.User.PhoneNumber,
-                Specialization = d.Specialization,
-                ExperienceYears = d.ExperienceYears,
+                Specialization = d.Specialty,
+                ExperienceYears = d.Experience,
                 Rating = d.Rating ?? 0m,
                 ImageUrl = d.ImageUrl
             }).ToList();
@@ -383,8 +383,8 @@ namespace ClinicPatient.Controllers
                     var doctor = new Doctor
                     {
                         UserId = user.Id,
-                        Specialization = model.Specialization,
-                        ExperienceYears = model.ExperienceYears,
+                        Specialty = model.Specialization,
+                        Experience = model.ExperienceYears,
                         Rating = 0
                     };
 
@@ -440,8 +440,8 @@ namespace ClinicPatient.Controllers
                 FullName = doctor.User.FullName,
                 Email = doctor.User.Email,
                 PhoneNumber = doctor.User.PhoneNumber,
-                Specialization = doctor.Specialization,
-                ExperienceYears = doctor.ExperienceYears,
+                Specialization = doctor.Specialty,
+                ExperienceYears = doctor.Experience,
                 Rating = doctor.Rating ?? 0m,
                 ImageUrl = doctor.ImageUrl
             };
@@ -486,8 +486,8 @@ namespace ClinicPatient.Controllers
                 }
 
                 // Update doctor information
-                doctor.Specialization = model.Specialization;
-                doctor.ExperienceYears = model.ExperienceYears;
+                doctor.Specialty = model.Specialization;
+                doctor.Experience = model.ExperienceYears;
 
                 // Handle profile image upload
                 if (model.ProfileImage != null)
@@ -533,8 +533,8 @@ namespace ClinicPatient.Controllers
                 FullName = doctor.User.FullName,
                 Email = doctor.User.Email,
                 PhoneNumber = doctor.User.PhoneNumber,
-                Specialization = doctor.Specialization,
-                ExperienceYears = doctor.ExperienceYears,
+                Specialization = doctor.Specialty,
+                ExperienceYears = doctor.Experience,
                 Rating = doctor.Rating ?? 0m,
                 ImageUrl = doctor.ImageUrl
             };

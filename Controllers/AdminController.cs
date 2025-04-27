@@ -48,9 +48,9 @@ namespace ClinicPatient.Controllers
                 FullName = d.User.FullName,
                 Email = d.User.Email,
                 PhoneNumber = d.User.PhoneNumber,
-                Specialization = d.Specialization,
+                Specialization = d.Specialty,
                 ImageUrl = d.User.ImageUrl ?? "/images/default-doctor.png",
-                ExperienceYears = d.ExperienceYears
+                ExperienceYears = d.Experience
             })
             .ToList();
 
@@ -92,9 +92,9 @@ namespace ClinicPatient.Controllers
                 FullName = d.User.FullName,
                 Email = d.User.Email,
                 PhoneNumber = d.User.PhoneNumber,
-                Specialization = d.Specialization,
+                Specialization = d.Specialty,
                 ImageUrl = d.User.ImageUrl ?? "/images/default-doctor.png",
-                ExperienceYears = d.ExperienceYears
+                ExperienceYears = d.Experience
             }).ToList();
 
             return View(viewModels);

@@ -48,7 +48,7 @@ namespace ClinicPatient.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+    
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -93,9 +93,9 @@ namespace ClinicPatient.Controllers
                         var doctor = new Doctor
                         {
                             UserId = user.Id,
-                            Specialization = model.Specialization ?? "",
+                            Specialty = model.Specialization ?? "",
                             Bio = model.Bio,
-                            ExperienceYears = model.ExperienceYears ?? 0,
+                            Experience = model.ExperienceYears ?? 0,
                             Rating = 0,                            
                             Education = model.Education,
                             ConsultationFee = model.ConsultationFee
@@ -186,7 +186,7 @@ namespace ClinicPatient.Controllers
                         return RedirectToAction("Dashboard", "Doctors");
 
                     if (await _userManager.IsInRoleAsync(user, "Patient"))
-                        return RedirectToAction("Profile", "Patients");
+                        return RedirectToAction("Profile", "Patient");
 
                     return LocalRedirect(returnUrl);
                 }
@@ -224,7 +224,7 @@ namespace ClinicPatient.Controllers
             }
             if (user.UserType == "Patient")
             {
-                return RedirectToAction("Profile", "Patients");
+                return RedirectToAction("Profile", "Patient");
             }
             else if (user.UserType == "Doctor")
             {
@@ -320,8 +320,8 @@ namespace ClinicPatient.Controllers
                 return NotFound();
             }
 
-            doctor.Specialization = model.Specialization;
-            doctor.ExperienceYears = model.ExperienceYears;
+            doctor.Specialty = model.Specialization;
+            doctor.Experience = model.ExperienceYears;
 
             // Handle profile image upload
             if (model.ProfileImage != null)

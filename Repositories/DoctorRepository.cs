@@ -20,7 +20,7 @@ namespace ClinicPatient.Repositories
         {
             return await _db.Doctors
                 .Include(d => d.User)
-                .Where(d => d.Specialization.Contains(specialization))
+                .Where(d => d.Specialty.Contains(specialization))
                 .ToListAsync();
         }
 
@@ -32,7 +32,7 @@ namespace ClinicPatient.Repositories
             return await _db.Doctors
                 .Include(d => d.User)
                 .Where(d => d.User.FullName.Contains(searchTerm) ||
-                            d.Specialization.Contains(searchTerm))
+                            d.Specialty.Contains(searchTerm))
                 .ToListAsync();
         }
 

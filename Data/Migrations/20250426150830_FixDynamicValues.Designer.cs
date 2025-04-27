@@ -4,6 +4,7 @@ using ClinicPatient.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicPatient.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250426150830_FixDynamicValues")]
+    partial class FixDynamicValues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,56 +294,6 @@ namespace ClinicPatient.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Doctors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "غزة - السرايا",
-                            Bio = "استشاري أمراض القلب والأوعية الدموية بخبرة أكثر من 15 عاماً في علاج أمراض القلب والشرايين",
-                            City = "غزة",
-                            CreatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Experience = 15,
-                            FullName = "أحمد محمد",
-                            Rating = 4.5m,
-                            RatingCount = 0,
-                            Specialty = "قلب وأوعية دموية",
-                            UpdatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "83670e60-4703-4748-8f56-3433db72cead",
-                            Workplace = "عيادة أحمد"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "غزة - الشفا",
-                            Bio = "استشارية الأمراض الجلدية والتجميل، متخصصة في علاج مشاكل البشرة والجلد والليزر التجميلي",
-                            City = "غزة",
-                            CreatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Experience = 13,
-                            FullName = "سارة علي",
-                            Rating = 5m,
-                            RatingCount = 0,
-                            Specialty = "جلدية",
-                            UpdatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "4c3734ae-0661-45b2-985c-4142bf3fd57e",
-                            Workplace = "عيادة سارة"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "خانيونس - البلد",
-                            Bio = "استشاري جراحة العظام والمفاصل، متخصص في جراحات استبدال المفاصل وإصابات الملاعب",
-                            City = "خانيونس",
-                            CreatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Experience = 20,
-                            FullName = "خالد العمري",
-                            Rating = 4m,
-                            RatingCount = 0,
-                            Specialty = "جراحة عظام",
-                            UpdatedAt = new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "43e7b2b8-91ab-4b37-823a-0668332d073a",
-                            Workplace = "عيادة خالد"
-                        });
                 });
 
             modelBuilder.Entity("ClinicPatient.Models.DoctorAvailability", b =>
