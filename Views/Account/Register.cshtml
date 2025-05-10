@@ -1,5 +1,5 @@
-﻿@page
-@model RegisterModel
+﻿
+@model ClinicPatient.ViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "إنشاء حساب جديد";
     Layout = "_Layout";
@@ -35,10 +35,10 @@
                         </div>
 
                         <!-- Registration Form -->
-                        <form id="registerForm" method="post" class="needs-validation">
+                        <form id="registerForm" method="post" class="needs-validation" asp-controller="Account" asp-action="Register">
                             <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
-                            <input type="hidden" asp-for="Input.UserType" id="userTypeField" value="Patient" />
-
+                            <input type="hidden" asp-for="UserType" id="userTypeField" value="Patient" />
+                            
                             <!-- Personal Information -->
                             <div class="mb-4">
                                 <h5 class="fw-bold mb-3">المعلومات الشخصية</h5>
@@ -46,67 +46,67 @@
                                 <div class="row g-3">
                                     <!-- Full Name -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.FullName" class="form-label"></label>
+                                        <label asp-for="FullName" class="form-label"></label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-white text-muted">
                                                 <i class="fas fa-user"></i>
                                             </span>
-                                            <input asp-for="Input.FullName" class="form-control" placeholder="أدخل اسمك الكامل" />
+                                            <input asp-for="FullName" class="form-control" placeholder="أدخل اسمك الكامل" />
                                         </div>
-                                        <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                                        <span asp-validation-for="FullName" class="text-danger"></span>
                                     </div>
 
                                     <!-- Email -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.Email" class="form-label"></label>
+                                        <label asp-for="Email" class="form-label"></label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-white text-muted">
                                                 <i class="fas fa-envelope"></i>
                                             </span>
-                                            <input asp-for="Input.Email" class="form-control" placeholder="أدخل بريدك الإلكتروني" />
+                                            <input asp-for="Email" class="form-control" placeholder="أدخل بريدك الإلكتروني" />
                                         </div>
-                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
 
                                     <!-- Phone Number -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                                        <label asp-for="PhoneNumber" class="form-label"></label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-white text-muted">
                                                 <i class="fas fa-phone"></i>
                                             </span>
-                                            <input asp-for="Input.PhoneNumber" class="form-control" placeholder="05xxxxxxxx" />
+                                            <input asp-for="PhoneNumber" class="form-control" placeholder="05xxxxxxxx" />
                                         </div>
-                                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                     </div>
 
                                     <!-- Birth Date -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.BirthDate" class="form-label"></label>
+                                        <label asp-for="DateOfBirth" class="form-label"></label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-white text-muted">
                                                 <i class="fas fa-calendar"></i>
                                             </span>
-                                            <input asp-for="Input.BirthDate" class="form-control" />
+                                            <input asp-for="DateOfBirth" class="form-control" />
                                         </div>
-                                        <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+                                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                                     </div>
 
                                     <!-- Gender -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.Gender" class="form-label"></label>
-                                        <select asp-for="Input.Gender" class="form-select">
+                                        <label asp-for="Gender" class="form-label"></label>
+                                        <select asp-for="Gender" class="form-select">
                                             <option value="" selected disabled>اختر الجنس</option>
                                             <option value="male">ذكر</option>
                                             <option value="female">أنثى</option>
                                         </select>
-                                        <span asp-validation-for="Input.Gender" class="text-danger"></span>
+                                        <span asp-validation-for="Gender" class="text-danger"></span>
                                     </div>
 
                                     <!-- City -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.City" class="form-label"></label>
-                                        <select asp-for="Input.City" class="form-select">
+                                        <label asp-for="City" class="form-label"></label>
+                                        <select asp-for="City" class="form-select">
                                             <option value="" selected disabled>اختر المدينة</option>
                                             <option value="شمال غزة">شمال غزة</option>
                                             <option value="غزة">غزة</option>
@@ -118,7 +118,7 @@
                                             <option value="البريج">البريج</option>
                                             <option value="أخرى">أخرى</option>
                                         </select>
-                                        <span asp-validation-for="Input.City" class="text-danger"></span>
+                                        <span asp-validation-for="City" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -130,33 +130,33 @@
                                 <div class="row g-3">
                                     <!-- Password -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.Password" class="form-label"></label>
+                                        <label asp-for="Password" class="form-label"></label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-white text-muted">
                                                 <i class="fas fa-lock"></i>
                                             </span>
-                                            <input asp-for="Input.Password" class="form-control" placeholder="أدخل كلمة المرور" />
+                                            <input asp-for="Password" class="form-control" placeholder="أدخل كلمة المرور" />
                                             <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                                 <i class="fas fa-eye" id="passwordIcon"></i>
                                             </button>
                                         </div>
                                         <div class="form-text">يجب أن تحتوي على الأقل 8 أحرف</div>
-                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
 
                                     <!-- Confirm Password -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+                                        <label asp-for="ConfirmPassword" class="form-label"></label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-white text-muted">
                                                 <i class="fas fa-lock"></i>
                                             </span>
-                                            <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="أعد إدخال كلمة المرور" />
+                                            <input asp-for="ConfirmPassword" class="form-control" placeholder="أعد إدخال كلمة المرور" />
                                             <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
                                                 <i class="fas fa-eye" id="confirmPasswordIcon"></i>
                                             </button>
                                         </div>
-                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -168,8 +168,8 @@
                                 <div class="row g-3">
                                     <!-- Specialty -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.Specialty" class="form-label"></label>
-                                        <select asp-for="Input.Specialty" class="form-select">
+                                        <label asp-for="Specialty" class="form-label"></label>
+                                        <select asp-for="Specialty" class="form-select">
                                             <option value="" selected disabled>اختر التخصص</option>
                                             <option value="general">طب عام</option>
                                             <option value="cardiology">قلب وأوعية دموية</option>
@@ -181,42 +181,42 @@
                                             <option value="dintest">أسنان</option>
                                             <option value="other">أخرى</option>
                                         </select>
-                                        <span asp-validation-for="Input.Specialty" class="text-danger"></span>
+                                        <span asp-validation-for="Specialty" class="text-danger"></span>
                                     </div>
 
                                     <!-- Years of Experience -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.Experience" class="form-label"></label>
-                                        <input asp-for="Input.Experience" class="form-control" placeholder="عدد سنوات الخبرة" min="1" />
-                                        <span asp-validation-for="Input.Experience" class="text-danger"></span>
+                                        <label asp-for="Experience" class="form-label"></label>
+                                        <input asp-for="Experience" class="form-control" placeholder="عدد سنوات الخبرة" min="1" />
+                                        <span asp-validation-for="Experience" class="text-danger"></span>
                                     </div>
 
                                     <!-- Medical License -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.License" class="form-label"></label>
-                                        <input asp-for="Input.License" class="form-control" placeholder="أدخل رقم الترخيص الطبي" />
-                                        <span asp-validation-for="Input.License" class="text-danger"></span>
+                                        <label asp-for="License" class="form-label"></label>
+                                        <input asp-for="License" class="form-control" placeholder="أدخل رقم الترخيص الطبي" />
+                                        <span asp-validation-for="License" class="text-danger"></span>
                                     </div>
 
                                     <!-- Clinic/Hospital -->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.Workplace" class="form-label"></label>
-                                        <input asp-for="Input.Workplace" class="form-control" placeholder="اسم مكان العمل" />
-                                        <span asp-validation-for="Input.Workplace" class="text-danger"></span>
+                                        <label asp-for="Workplace" class="form-label"></label>
+                                        <input asp-for="Workplace" class="form-control" placeholder="اسم مكان العمل" />
+                                        <span asp-validation-for="Workplace" class="text-danger"></span>
                                     </div>
                                     
                                     <!-- Clinic/Hospital address-->
                                     <div class="col-md-6">
-                                        <label asp-for="Input.Address" class="form-label"></label>
-                                        <input asp-for="Input.Address" class="form-control" placeholder="اسم مكان العمل" />
-                                        <span asp-validation-for="Input.Workplace" class="text-danger"></span>
+                                        <label asp-for="Address" class="form-label"></label>
+                                        <input asp-for="Address" class="form-control" placeholder="اسم مكان العمل" />
+                                        <span asp-validation-for="Workplace" class="text-danger"></span>
                                     </div>
 
                                     <!-- Bio -->
                                     <div class="col-12">
-                                        <label asp-for="Input.Bio" class="form-label"></label>
-                                        <textarea asp-for="Input.Bio" class="form-control" rows="3" placeholder="اكتب نبذة مختصرة عن خبراتك ومهاراتك"></textarea>
-                                        <span asp-validation-for="Input.Bio" class="text-danger"></span>
+                                        <label asp-for="Bio" class="form-label"></label>
+                                        <textarea asp-for="Bio" class="form-control" rows="3" placeholder="اكتب نبذة مختصرة عن خبراتك ومهاراتك"></textarea>
+                                        <span asp-validation-for="Bio" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -224,11 +224,11 @@
                             <!-- Terms and Privacy -->
                             <div class="mb-4">
                                 <div class="form-check">
-                                    <input asp-for="Input.AgreeTerms" class="form-check-input" />
-                                    <label asp-for="Input.AgreeTerms" class="form-check-label">
+                                    <input asp-for="AgreeTerms" class="form-check-input" />
+                                    <label asp-for="AgreeTerms" class="form-check-label">
                                         أوافق على <a href="#" class="text-primary">شروط الاستخدام</a> و <a href="#" class="text-primary">سياسة الخصوصية</a>
                                     </label>
-                                    <span asp-validation-for="Input.AgreeTerms" class="text-danger d-block"></span>
+                                    <span asp-validation-for="AgreeTerms" class="text-danger d-block"></span>
                                 </div>
                             </div>
 

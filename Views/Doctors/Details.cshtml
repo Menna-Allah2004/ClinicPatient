@@ -1,0 +1,399 @@
+﻿@{
+    ViewData["Title"] = "معلومات الطبيب";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Doctor Details -->
+<main class="py-5 mt-5">
+    <div class="container py-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">الرئيسية</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Doctors" asp-action="Index">الأطباء</a></li>
+                <li class="breadcrumb-item active" aria-current="page" id="doctorNameBreadcrumb">
+                    د. عبدالرحمن الأحمد
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Doctor Info -->
+        <div class="row g-4">
+            <!-- Doctor Info Card - Left Side -->
+            <div class="col-lg-4 order-2 order-lg-1">
+                <div class="card shadow-sm rounded-4 border-0 sticky-lg-top" style="top: 100px;">
+                    <div class="card-body p-4">
+                        <div class="d-flex flex-column align-items-center text-center mb-4">
+                            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mb-3 overflow-hidden"
+                                 style="width: 140px; height: 140px;">
+                                <img id="doctorImage" src="https://via.placeholder.com/140" alt="صورة الطبيب"
+                                     class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <h2 id="doctorName" class="fs-4 fw-bold mb-1">د. عبدالرحمن الأحمد</h2>
+                            <p id="doctorSpecialty" class="text-medical-600 mb-2">طب القلب</p>
+                            <div class="d-flex align-items-center mb-1">
+                                <div id="doctorRatingStars" class="me-2">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                </div>
+                                <span id="doctorRating" class="fw-semibold">4.9</span>
+                                <span class="text-muted ms-1">(<span id="doctorReviews">124</span> تقييم)</span>
+                            </div>
+                        </div>
+
+                        <hr class="my-3">
+
+                        <div class="mb-3">
+                            <div class="d-flex mb-3">
+                                <div class="rounded-circle bg-medical-50 d-flex align-items-center justify-content-center ms-3"
+                                     style="width: 40px; height: 40px;">
+                                    <i class="fas fa-map-marker-alt text-medical-600"></i>
+                                </div>
+                                <div>
+                                    <p class="text-muted small mb-1">العنوان</p>
+                                    <p id="doctorLocation" class="fw-medium mb-0">عيادة عبدالرحمن - خانيونس</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex mb-3">
+                                <div class="rounded-circle bg-medical-50 d-flex align-items-center justify-content-center ms-3"
+                                     style="width: 40px; height: 40px;">
+                                    <i class="fas fa-stethoscope text-medical-600"></i>
+                                </div>
+                                <div>
+                                    <p class="text-muted small mb-1">سنوات الخبرة</p>
+                                    <p id="doctorExperience" class="fw-medium mb-0">15 سنة</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex mb-3">
+                                <div class="rounded-circle bg-medical-50 d-flex align-items-center justify-content-center ms-3"
+                                     style="width: 40px; height: 40px;">
+                                    <i class="fas fa-comment-medical text-medical-600"></i>
+                                </div>
+                                <div>
+                                    <p class="text-muted small mb-1">رسوم الكشف</p>
+                                    <p id="doctorFee" class="fw-medium mb-0">30 شيكل</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex">
+                                <div class="rounded-circle bg-medical-50 d-flex align-items-center justify-content-center ms-3"
+                                     style="width: 40px; height: 40px;">
+                                    <i class="fas fa-hourglass-half text-medical-600"></i>
+                                </div>
+                                <div>
+                                    <p class="text-muted small mb-1">وقت الانتظار</p>
+                                    <p id="doctorWaitTime" class="fw-medium mb-0">15-20 دقيقة</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-3">
+
+                        <div id="doctorAvailabilitySection" class="mb-4">
+                            <h4 class="fs-6 fw-semibold mb-3">المواعيد المتاحة اليوم</h4>
+                            <div class="d-flex flex-wrap gap-2 mb-3" id="availableTimesContainer">
+                                <!-- سيتم إضافة المواعيد المتاحة عن طريق JavaScript -->
+                                <span class="badge bg-light text-dark p-2">9:00 ص</span>
+                                <span class="badge bg-light text-dark p-2">10:30 ص</span>
+                                <span class="badge bg-light text-dark p-2">11:45 ص</span>
+                                <span class="badge bg-light text-dark p-2">1:15 م</span>
+                                <span class="badge bg-light text-dark p-2">2:30 م</span>
+                            </div>
+                            <a href="book-appointment.html" class="btn btn-primary w-100 py-2 rounded-3">
+                                <i class="fas fa-calendar-check me-2"></i>
+                                حجز موعد
+                            </a>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <a href="tel:+9665012345678"
+                               class="btn btn-outline-secondary flex-grow-1 py-2 rounded-3">
+                                <i class="fas fa-phone-alt me-2"></i>
+                                اتصال
+                            </a>
+                            <a href="#" class="btn btn-outline-secondary flex-grow-1 py-2 rounded-3">
+                                <i class="fas fa-comment me-2"></i>
+                                مراسلة
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor Details - Right Side -->
+            <div class="col-lg-8 order-1 order-lg-2">
+                <div class="card shadow-sm rounded-4 border-0 mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="fs-5 fw-bold mb-3">نبذة عن الطبيب</h3>
+                        <p id="doctorBio" class="text-muted">
+                            طبيب قلب استشاري مع أكثر من 15 عامًا من الخبرة في تشخيص وعلاج أمراض القلب والأوعية
+                            الدموية. متخصص في قسطرة القلب والتصوير بالموجات فوق الصوتية. حاصل على شهادة الزمالة في
+                            أمراض القلب من جامعة الأزهر. يؤمن بأهمية الرعاية الطبية الشاملة
+                            والوقاية من أمراض القلب لتحسين نوعية حياة المرضى.
+                        </p>
+
+                        <div class="row g-4 mt-2">
+                            <div class="col-md-6">
+                                <h4 class="fs-6 fw-semibold mb-3">التخصصات</h4>
+                                <ul class="list-group list-group-flush" id="doctorSpecialties">
+                                    <li class="list-group-item ps-0 border-0 d-flex align-items-center">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        تشخيص وعلاج أمراض القلب
+                                    </li>
+                                    <li class="list-group-item ps-0 border-0 d-flex align-items-center">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        قسطرة القلب التشخيصية والعلاجية
+                                    </li>
+                                    <li class="list-group-item ps-0 border-0 d-flex align-items-center">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        تصوير القلب بالموجات فوق الصوتية
+                                    </li>
+                                    <li class="list-group-item ps-0 border-0 d-flex align-items-center">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        علاج ارتفاع ضغط الدم
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h4 class="fs-6 fw-semibold mb-3">اللغات</h4>
+                                <ul class="list-group list-group-flush" id="doctorLanguages">
+                                    <li class="list-group-item ps-0 border-0 d-flex align-items-center">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        العربية
+                                    </li>
+                                    <li class="list-group-item ps-0 border-0 d-flex align-items-center">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        الإنجليزية
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm rounded-4 border-0 mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="fs-5 fw-bold mb-4">التعليم والشهادات</h3>
+
+                        <div class="timeline" id="doctorEducation">
+                            <div class="timeline-item mb-4">
+                                <div class="d-flex">
+                                    <div class="timeline-marker me-3">
+                                        <div class="rounded-circle bg-medical-50 d-flex align-items-center justify-content-center"
+                                             style="width: 40px; height: 40px;">
+                                            <i class="fas fa-graduation-cap text-medical-600"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="fs-6 fw-semibold mb-1">زمالة أمراض القلب</h4>
+                                        <p class="text-muted mb-1">جامعة الأزهر - غزة</p>
+                                        <p class="small text-muted">2014 - 2022</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item mb-4">
+                                <div class="d-flex">
+                                    <div class="timeline-marker me-3">
+                                        <div class="rounded-circle bg-medical-50 d-flex align-items-center justify-content-center"
+                                             style="width: 40px; height: 40px;">
+                                            <i class="fas fa-graduation-cap text-medical-600"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="fs-6 fw-semibold mb-1">البورد العربي في الباطنة</h4>
+                                        <p class="text-muted mb-1">المجلس العربي للاختصاصات الصحية</p>
+                                        <p class="small text-muted">2008 - 2011</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="d-flex">
+                                    <div class="timeline-marker me-3">
+                                        <div class="rounded-circle bg-medical-50 d-flex align-items-center justify-content-center"
+                                             style="width: 40px; height: 40px;">
+                                            <i class="fas fa-graduation-cap text-medical-600"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="fs-6 fw-semibold mb-1">بكالوريوس الطب والجراحة</h4>
+                                        <p class="text-muted mb-1">الجامعة التطبيقية - غزة</p>
+                                        <p class="small text-muted">2001 - 2007</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm rounded-4 border-0 mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="fs-5 fw-bold mb-0">تقييمات المرضى</h3>
+                            <span class="badge bg-medical-50 text-medical-600 px-3 py-2 rounded-pill">
+                                <i class="fas fa-star text-warning me-1"></i>
+                                <span id="reviewsRating">4.9</span> (<span id="reviewsCount">124</span> تقييم)
+                            </span>
+                        </div>
+
+                        <div class="row align-items-center mb-4">
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <div class="display-4 fw-bold text-medical-600 mb-0">4.9</div>
+                                    <div class="mb-2">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star-half-alt text-warning"></i>
+                                    </div>
+                                    <p class="text-muted small mb-0">124 تقييم</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-9">
+                                <div class="ratings-bars">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="text-muted small min-w-20">5 نجوم</div>
+                                        <div class="progress flex-grow-1 ms-2" style="height: 8px;">
+                                            <div class="progress-bar bg-warning" role="progressbar"
+                                                 style="width: 80%"></div>
+                                        </div>
+                                        <div class="text-muted small min-w-20 text-end">80%</div>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="text-muted small min-w-20">4 نجوم</div>
+                                        <div class="progress flex-grow-1 ms-2" style="height: 8px;">
+                                            <div class="progress-bar bg-warning" role="progressbar"
+                                                 style="width: 15%"></div>
+                                        </div>
+                                        <div class="text-muted small min-w-20 text-end">15%</div>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="text-muted small min-w-20">3 نجوم</div>
+                                        <div class="progress flex-grow-1 ms-2" style="height: 8px;">
+                                            <div class="progress-bar bg-warning" role="progressbar"
+                                                 style="width: 5%"></div>
+                                        </div>
+                                        <div class="text-muted small min-w-20 text-end">5%</div>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="text-muted small min-w-20">2 نجوم</div>
+                                        <div class="progress flex-grow-1 ms-2" style="height: 8px;">
+                                            <div class="progress-bar bg-warning" role="progressbar"
+                                                 style="width: 0%"></div>
+                                        </div>
+                                        <div class="text-muted small min-w-20 text-end">0%</div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="text-muted small min-w-20">1 نجمة</div>
+                                        <div class="progress flex-grow-1 ms-2" style="height: 8px;">
+                                            <div class="progress-bar bg-warning" role="progressbar"
+                                                 style="width: 0%"></div>
+                                        </div>
+                                        <div class="text-muted small min-w-20 text-end">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="reviewsList">
+                            <!-- سيتم إضافة التقييمات عن طريق JavaScript -->
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button id="loadMoreReviews" class="btn btn-outline-secondary px-4 py-2 rounded-3">
+                                عرض المزيد من التقييمات
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm rounded-4 border-0">
+                    <div class="card-body p-4">
+                        <h3 class="fs-5 fw-bold mb-4">الأسئلة الشائعة</h3>
+
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-medium rounded-3" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq1">
+                                        ما هي مدة الكشف؟
+                                    </button>
+                                </h2>
+                                <div id="faq1" class="accordion-collapse collapse show"
+                                     data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        مدة الكشف العادية هي 20-30 دقيقة للمرضى الجدد، و15-20 دقيقة للمتابعة.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-medium rounded-3 collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq2">
+                                        هل يمكنني إلغاء الموعد؟
+                                    </button>
+                                </h2>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        نعم، يمكنك إلغاء الموعد قبل 24 ساعة من الموعد المحدد دون أي رسوم. الإلغاء
+                                        خلال الـ 24 ساعة قبل الموعد قد يخضع لرسوم.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-medium rounded-3 collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq3">
+                                        هل يمكنني الحصول على استشارة عن بعد؟
+                                    </button>
+                                </h2>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        نعم، يقدم الدكتور استشارات عبر الرسائل للمرضى الذين لا يستطيعون الحضور
+                                        شخصياً. يمكنك اختيار هذا الخيار عند حجز الموعد.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item border-0 shadow-sm rounded-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-medium rounded-3 collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq4">
+                                        ما هي طرق الدفع المتاحة؟
+                                    </button>
+                                </h2>
+                                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        يمكنك الدفع نقداً أو باستخدام تطبيق بال باي أو الدفع عن طريق بنك فلسطين إذا
+                                        كنت تمتلك حساب بنكي.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Toast Container -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Main JavaScript -->
+<script src="js/main.js"></script>
+<!-- Doctor Details JavaScript -->
+<script src="js/doctor-details.js"></script>

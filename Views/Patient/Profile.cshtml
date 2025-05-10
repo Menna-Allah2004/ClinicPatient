@@ -1,0 +1,160 @@
+﻿@{
+    ViewData["Title"] = "الملف الشخصية";
+}
+
+<main class="py-5 mt-5">
+    <div class="container py-4">
+        <h1 class="display-6 fw-bold mb-4">الملف الشخصي</h1>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card shadow-sm rounded-4 border-0 h-100 profile-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h3 class="card-title fs-5 fw-bold">المعلومات الشخصية</h3>
+                            <button id="editProfileBtn" class="btn btn-sm btn-light">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                        </div>
+                        <p class="card-subtitle mb-4 text-muted">البيانات الشخصية والصحية</p>
+
+                        <div id="viewProfileMode">
+                            <div class="d-flex mb-4">
+                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-user fa-2x text-muted"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h4 class="fs-5 fw-semibold mb-1" id="displayName">@Model.FullName</h4>
+                                    <p class="text-muted mb-0" id="displayEmail">@Model.Email</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-6">
+                                    <p class="text-muted small mb-1">رقم الهاتف</p>
+                                    <p class="fw-medium" id="displayPhone">@Model.PhoneNumber</p>
+                                </div>\n                                <div class="col-6">
+                                    <p class="text-muted small mb-1">تاريخ الميلاد</p>
+                                    <p class="fw-medium" id="displayBirthDate">@Model.DateOfBirth.ToShortDateString()</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-muted small mb-1">فصيلة الدم</p>
+                                    <p class="fw-medium" id="displayBloodType">A+</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-muted small mb-1">الحساسية</p>
+                                    <p class="fw-medium" id="displayAllergies">لا يوجد</p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="text-muted small mb-1">الأمراض المزمنة</p>
+                                    <p class="fw-medium" id="displayChronicDiseases">ضغط الدم المرتفع</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="editProfileMode" class="d-none">
+                            <form id="editProfileForm">
+                                <div class="mb-3">
+                                    <label for="editName" class="form-label small fw-medium">الاسم</label>
+                                    <input type="text" class="form-control" id="editName" value="أحمد محمد">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editEmail" class="form-label small fw-medium">البريد الإلكتروني</label>
+                                    <input type="email" class="form-control" id="editEmail" value="ahmed@example.com">
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-6">
+                                        <label for="editPhone" class="form-label small fw-medium">رقم الهاتف</label>
+                                        <input type="text" class="form-control" id="editPhone" value="0501234567">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="editBirthDate" class="form-label small fw-medium">تاريخ الميلاد</label>
+                                        <input type="text" class="form-control" id="editBirthDate" value="01/05/1985">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="editBloodType" class="form-label small fw-medium">فصيلة الدم</label>
+                                        <select class="form-select" id="editBloodType">
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="editAllergies" class="form-label small fw-medium">الحساسية</label>
+                                        <input type="text" class="form-control" id="editAllergies" value="لا يوجد">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="editChronicDiseases" class="form-label small fw-medium">الأمراض المزمنة</label>
+                                        <input type="text" class="form-control" id="editChronicDiseases" value="ضغط الدم المرتفع">
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end gap-2 mt-4">
+                                    <button type="button" id="cancelEditBtn" class="btn btn-light">إلغاء</button>
+                                    <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card shadow-sm rounded-4 border-0">
+                    <div class="card-body p-0">
+                        <ul class="nav nav-pills nav-fill p-3 border-bottom" id="profileTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active px-4 py-2" id="appointments-tab" data-bs-toggle="tab" data-bs-target="#appointments-tab-pane" type="button" role="tab">
+                                    <i class="fas fa-calendar-alt me-2"></i>
+                                    المواعيد
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link px-4 py-2" id="medical-records-tab" data-bs-toggle="tab" data-bs-target="#medical-records-tab-pane" type="button" role="tab">
+                                    <i class="fas fa-file-medical me-2"></i>
+                                    السجل الطبي
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content p-4" id="profileTabsContent">
+                            <div class="tab-pane fade show active" id="appointments-tab-pane" role="tabpanel" aria-labelledby="appointments-tab" tabindex="0">
+                                <h3 class="fs-5 fw-bold mb-4">
+                                    <i class="fas fa-clock me-2 text-medical-500"></i>
+                                    المواعيد
+                                </h3>
+                                <div id="appointmentsList" class="mb-3">
+                                    <!-- Appointments will be loaded via JavaScript -->
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="medical-records-tab-pane" role="tabpanel" aria-labelledby="medical-records-tab" tabindex="0">
+                                <h3 class="fs-5 fw-bold mb-4">
+                                    <i class="fas fa-file-medical me-2 text-medical-500"></i>
+                                    السجل الطبي
+                                </h3>
+                                <div id="medicalRecordsList" class="mb-3">
+                                    @Model.MedicalHistory
+                                    <!-- Medical records will be loaded via JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/ar.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/patient-profile.js"></script>
+    <script>
+        document.getElementById('current-year')?.textContent = new Date().getFullYear();
+    </script>

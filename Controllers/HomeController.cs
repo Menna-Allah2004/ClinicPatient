@@ -40,15 +40,15 @@ namespace ClinicPatient.Controllers
                 FullName = d.User.FullName,
                 Email = d.User.Email,
                 PhoneNumber = d.User.PhoneNumber,
-                Specialization = d.Specialization,
-                ExperienceYears = d.ExperienceYears,
+                Specialization = d.Specialty,
+                ExperienceYears = d.Experience,
                 Rating = d.Rating ?? 0m,
                 ImageUrl = d.ImageUrl ?? "/images/default-doctor.png"
             }).ToList();
 
-            ViewBag.TopDoctors = topDoctorsViewModel;
+            //ViewBag.TopDoctors = topDoctorsViewModel;
 
-            return View();
+            return View(topDoctorsViewModel);
         }
 
         public IActionResult Privacy()
@@ -109,8 +109,8 @@ namespace ClinicPatient.Controllers
                 FullName = d.User.FullName,
                 Email = d.User.Email,
                 PhoneNumber = d.User.PhoneNumber,
-                Specialization = d.Specialization,
-                ExperienceYears = d.ExperienceYears,
+                Specialization = d.Specialty,
+                ExperienceYears = d.Experience,
                 Rating = d.Rating ?? 0m,
                 ImageUrl = d.ImageUrl
             }).ToList();
